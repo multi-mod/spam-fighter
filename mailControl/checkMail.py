@@ -68,10 +68,10 @@ class manageSubreddits(object):
 				message = 'watcher was added to /r/' + sub
 				print(message)
 				self.reddit.redditor(sender).message('spam_watcher notification', message)
-				modmail = '''/u/{user} asked /u/spam_watcher to start watching your subreddit\n
-				This bot will report posts if a user is posting a domain or media channel too often\n
-				For more information and support visit /r/spam_watcher or message /u/multi-mod\n
-				To remove the bot message /u/spam_watcher with the subreddit as the title and remove as the body'''
+				modmail = '/u/{user} asked /u/spam_watcher to start watching your subreddit.' \
+				' This bot will report posts if a user is posting a domain or media channel too often.' \
+				' For more information and support visit /r/spam_watcher or message /u/multi-mod.' \
+				' To remove the bot message /u/spam_watcher with the subreddit as the title and remove as the body'
 				modmail = modmail.format(user = sender)
 				self.reddit.subreddit(sub).message('spam_watcher is now watching your subreddit!', modmail)
 			# subreddit already being watched and sender wants to add it
@@ -87,10 +87,10 @@ class manageSubreddits(object):
 				message = 'watcher was removed from /r/' + sub
 				print(message)
 				self.reddit.redditor(sender).message('spam_watcher notification', message)
-				modmail = '''/u/{user} told /u/spam_watcher to stop watching your subreddit\n
-				For more information and support visit /r/spam-watcher or message /u/multi-mod\n
-				To add the bot again message /u/spam_watcher with the subreddit as the title and add as the body'''
-				modmail.format(user = sender)
+				modmail = '/u/{user} told /u/spam_watcher to stop watching your subreddit.' \
+				' For more information and support visit /r/spam_watcher or message /u/multi-mod.' \
+				' To add the bot again message /u/spam_watcher with the subreddit as the title and add as the body'
+				modmail = modmail.format(user = sender)
 				self.reddit.subreddit(sub).message('spam_watcher stopped watching your subreddit', modmail)
 			# subreddit is not being watched and sender wants to remove it
 			else:
