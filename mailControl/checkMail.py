@@ -34,7 +34,7 @@ class manageSubreddits(object):
 			try: 
 				self.reddit.subreddit(sub).fullname
 			# catch exception if subreddit doesn't exist
-			except prawcore.exceptions.Redirect:
+			except (prawcore.exceptions.Redirect, prawcore.exceptions.NotFound):
 				message = '/r/' + sub + ' not found'
 				print(message)
 				self.reddit.redditor(sender).message('spam_watcher notification', message)
@@ -74,7 +74,7 @@ class manageSubreddits(object):
 					For more information and support visit /r/spam_watcher or message /u/multi-mod\n
 					To remove the bot message /u/spam_watcher with the subreddit as the title and remove as the body
 				'''.format(user = sender)
-				self.reddit.subreddit(sub).message('spam_watcher is now watching your subreddit!', message)
+				self.reddit.subreddit(sub).message('spam_watcher is now watching your subreddit!', modmail)
 			# subreddit already being watched and sender wants to add it
 			elif operation == 'add' and sub in self.subreddits:
 				m.mark_read()
@@ -93,7 +93,7 @@ class manageSubreddits(object):
 					For more information and support visit /r/spam-watcher or message /u/multi-mod\n
 					To add the bot again message /u/spam_watcher with the subreddit as the title and add as the body
 				'''.format(user = sender)
-				self.reddit.subreddit(sub).message('spam_watcher stopped watching your subreddit', message)
+				self.reddit.subreddit(sub).message('spam_watcher stopped watching your subreddit', modmail)
 			# subreddit is not being watched and sender wants to remove it
 			else:
 				m.mark_read()
