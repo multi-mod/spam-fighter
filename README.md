@@ -13,5 +13,5 @@ To configure the whitelist, create a wiki called **spam_watcher** on your subred
 ## Spam Removal Conditions
 
 - If a user has < 5 posts, ignore
-- if a user has 5-9 posts, remove if percentage >= 50
-- if a user has >= 10 posts, remove if percentage >= 25
+- if a user has 5-9 posts, report if percentage >= 50
+- if a user has >= 10 posts, report if percentage >= 25
