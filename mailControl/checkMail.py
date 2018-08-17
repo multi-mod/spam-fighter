@@ -21,6 +21,10 @@ class manageSubreddits(object):
 	def updateSubredditList(self):
 		mail = self.reddit.inbox.unread()
 		for m in mail:
+			# skip if not a direct message
+			if type(m) != praw.models.reddit.message.Message:
+				m.mark_read()
+				continue
 			### get sender
 			try:
 				sender = m.author.name
