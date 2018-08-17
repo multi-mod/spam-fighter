@@ -106,7 +106,7 @@ class mediaSpam(object):
 			perc = round((len(matching_channels) / len(author_submissions)) * 100)
 			if perc < 25: continue
 			# check if the user is spamming channel
-			if spamCheck.checkForSpam(total_submissions, perc):
+			if spamCheck.checkForSpam(total_submissions, settings.lower_percentage, settings.upper_percentage, perc):
 				announce.spamNotification(post.author.name, post.domain, perc, channel)
 				# remove post if mode set to remove
 				if mode == 'remove': post.mod.remove(spam=False)

@@ -47,7 +47,7 @@ class domainSpam(object):
 			# get the percentage of posts that have the submitted domain
 			perc = round((author_domains.count(post_domain) / len(author_domains)) * 100)
 			# check if the post is spam
-			if spamCheck.checkForSpam(total_submissions, perc):
+			if spamCheck.checkForSpam(total_submissions, settings.lower_percentage, settings.upper_percentage, perc):
 				# print the post information if it is spam
 				announce.spamNotification(post.author.name, post.domain, perc)
 				# remove the post if the mode is set to remove

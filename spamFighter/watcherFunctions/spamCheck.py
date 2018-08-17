@@ -1,10 +1,10 @@
-def checkForSpam(submissionNumber, percentage):
-	# return not spam if percentage < 25
-	if percentage < 25:
-		return False
-	# return spam if submission number is > 5 and < 10 wth a percentage above 50
-	elif 5 < submissionNumber < 10 and percentage >= 50:
+def checkForSpam(submissionNumber, lowerPercentage, upperPercentage, submissionPercentage):
+	# return spam if submission number is > 10 with a percentage above upperPercentage
+	if submissionNumber > 10 and percentage >= upperPercentage:
 		return True
-	# return spam if submission number >= 10 with a percentage >= 25
+	# return spam if submission number is > 5 and < 10 wth a percentage above lowerPercentage
+	elif 5 < submissionNumber < 10 and percentage >= lowerPercentage:
+		return True
+	# return not spam if above conditions for spam not met
 	else:
-		return True
+		return False
