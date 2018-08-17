@@ -68,12 +68,12 @@ if __name__ == "__main__":
 	watcher.initializePraw()
 	subreddit_lister = checkMail.manageSubreddits(watcher.reddit)
 	while True:
-		try:
-			subreddit_lister.updateSubredditList()
-			watcher.fightSpam(subreddit_lister.subreddits)
-			print("############# resting for 30 seconds #############")
-			time.sleep(30)
-		except prawcore.PrawcoreException as err:
-			print('############# prawcore excpetion, resting 60 seconds ##############')
-			print(err)
-			time.sleep(60)
+#		try:
+		subreddit_lister.updateSubredditList()
+		watcher.fightSpam(subreddit_lister.subreddits)
+		print("############# resting for 30 seconds #############")
+		time.sleep(30)
+#		except prawcore.PrawcoreException as err:
+#			print('############# prawcore excpetion, resting 60 seconds ##############')
+#			print(err)
+#			time.sleep(60)
