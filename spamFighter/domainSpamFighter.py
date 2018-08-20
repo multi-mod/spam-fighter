@@ -3,11 +3,24 @@ import prawcore
 from collections import deque
 import yaml
 from spamFighter.watcherFunctions import announce, spamCheck, getSettings
+from urllib.parse import urlparse
 
 class domainSpam(object):
 
 	def __init__(self):
 		self.log = {}
+
+	def getDomain(self, praw_post):
+		## check if domain is looked at further
+		# look at google play links in more detail
+		if praw_post.domain == 'play.google.com':
+			# get the studio from the url
+			domain = urlparse(praw_post.url).query.split('.')[2]
+		## if domain is not looked at further just return the API domain
+		else:
+			domain = praw_post.domain
+		## supply the domain as output
+		return domain
 
 	def parsePosts(self, praw_reddit, subreddit, postNumber, mode):
 		# get subreddit whitelist
@@ -23,10 +36,10 @@ class domainSpam(object):
 			# go to next post if the current post is a self post
 			if post.is_self: continue
 			# get the domain of the post
-			post_domain = post.domain
+			post_domain = self.getDomain(post)
 			# go to next post if the domain is in the whitelist
-			if post_domain.lower() in set(settings.whitelist): continue
-			if post_domain.lower() in set(['i.redd.it']): continue
+			if post.domain.lower() in set(settings.whitelist): continue
+			if post.domain.lower() in set(['i.redd.it']): continue
 			# get the newest 1000 posts from the author of the post
 			try:
 				author_submissions = post.author.submissions.new(limit=1000)
@@ -40,7 +53,7 @@ class domainSpam(object):
 					post.report(reason='spam_watcher: user not found, check post')
 				continue
 			# get the domains from the posts the author submitted
-			author_domains = [x.domain for x in author_submissions]
+			author_domains = [self.getDomain(x) for x in author_submissions]
 			# get the total number of posts from the author up to 1000
 			total_submissions = len(author_domains)
 			# if the author has less than 5 submissions, go to the next post
