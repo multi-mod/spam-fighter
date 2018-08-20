@@ -47,7 +47,7 @@ class domainSpam(object):
 			post_domain = self.getDomain(post)
 			# go to next post if the domain is in the whitelist
 			if post.domain.lower() in set(settings.whitelist): continue
-			if post.domain.lower() in set(['i.redd.it']): continue
+			if post.domain.lower() in set(['i.redd.it','reddit.com']): continue
 			# get the newest 1000 posts from the author of the post
 			try:
 				author_submissions = post.author.submissions.new(limit=1000)
