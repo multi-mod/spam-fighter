@@ -15,8 +15,11 @@ class domainSpam(object):
 		domain = praw_post.domain
 		# look at google play links in more detail
 		if domain == 'play.google.com':
-			# get the dev from the url
-			return_domain = urlparse(praw_post.url).query.split('.')[-2]
+			# try to get the dev from the url
+			try:
+				return_domain = urlparse(praw_post.url).query.split('.')[-2]
+			except IndexError:
+				return_domain = 'play.google.com'
 		# look at medium.com links in more detail
 		elif domain == 'medium.com':
 			# get the owner from the url
