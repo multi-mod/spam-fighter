@@ -12,15 +12,20 @@ class domainSpam(object):
 
 	def getDomain(self, praw_post):
 		## check if domain is looked at further
+		domain = praw_post.domain
 		# look at google play links in more detail
-		if praw_post.domain == 'play.google.com':
-			# get the studio from the url
-			domain = urlparse(praw_post.url).query.split('.')[2]
+		if domain == 'play.google.com':
+			# get the dev from the url
+			return_domain = urlparse(praw_post.url).query.split('.')[-2]
+		# look at medium.com links in more detail
+		elif domain == 'medium.com':
+			# get the owner from the url
+			return_domain = urlparse(praw_post.url).path.split('/')[1]
 		## if domain is not looked at further just return the API domain
 		else:
-			domain = praw_post.domain
+			return_domain = domain
 		## supply the domain as output
-		return domain
+		return return_domain
 
 	def parsePosts(self, praw_reddit, subreddit, postNumber, mode):
 		# get subreddit whitelist
