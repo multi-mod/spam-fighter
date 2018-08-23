@@ -50,6 +50,9 @@ class domainSpam(object):
 			if post.domain.lower() in set(['i.redd.it','reddit.com']): continue
 			# get the newest 1000 posts from the author of the post
 			try:
+				# go to next post if user in whitelist
+				if post.author.name.lower() in set(settings.userWhitelist):
+					continue
 				author_submissions = post.author.submissions.new(limit=1000)
 			except prawcore.exceptions.Forbidden:
 				print("+++USER SUSPENDED+++")

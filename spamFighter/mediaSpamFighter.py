@@ -83,6 +83,8 @@ class mediaSpam(object):
 				except (KeyError, TypeError):
 					continue
 			try:
+				# go to next post if user in whitelist
+				if post.author.name.lower() in set(settings.userWhitelist): continue
 				# try getting the submissions from the author
 				author_submissions = [x for x in post.author.submissions.new(limit=1000)]
 			except prawcore.exceptions.Forbidden:

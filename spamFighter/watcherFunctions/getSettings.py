@@ -23,6 +23,11 @@ class retrieve(object):
 				self.upper_percentage = yaml.load(sub_settings)['upper_percentage']
 			except KeyError:
 				self.upper_percentage = 25
+			# try user whitelist
+			try:
+				self.userWhitelist = yaml.load(sub_settings)['user_whitelist']
+			except KeyError:
+				self.userWhitelist = []
 		except prawcore.exceptions.NotFound:
 			print('WARNING: settings wiki not found')
 			self.whitelist = []
